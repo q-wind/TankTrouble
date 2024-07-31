@@ -1,6 +1,7 @@
-#ifndef WIDGET_H
-#define WIDGET_H
+#ifndef STARTWIDGET_H
+#define STARTWIDGET_H
 
+#include "gamemode.h"
 #include <QWidget>
 #include <QPushButton>
 #include <QHBoxLayout>
@@ -8,14 +9,14 @@
 #include <QPaintEvent>
 #include <QResizeEvent>
 
-// Start Widget
-class Widget : public QWidget
+// Start StartWidget
+class StartWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    Widget(QWidget *parent = nullptr);
-    ~Widget();
+    StartWidget(QWidget *parent = nullptr);
+    ~StartWidget();
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -25,13 +26,14 @@ private:
     void SetUI();
     void SetSignalSlot();
 
-    const int initWidth   = 800;
-    const int initHeight  = 600;
     const float aspectRadio = 4.0f / 3.0f;
 
-    // Qt中自动内存管理，父窗口析构时会负责销毁
+    // Qt中自动内存管理，父窗口析构时会负责销毁子部件
     QHBoxLayout* startLayout;
     QPushButton* btnStart;
+
+    QHBoxLayout* helpLayout;
+    QPushButton* btnHelp;
 
     QHBoxLayout* modeLayout;
     QPushButton* btnAIMode;
@@ -40,7 +42,14 @@ private:
 
     QVBoxLayout* mainLayout;
 
+signals:
+    void ModeSelected(Mode mode);
+
 private slots:
-    void DoShowGameMode();
+    void ShowGameMode();
+    void ShowHelp();
+    void StartAIGame();
+    void StartLocalGame();
+    void StartOnlineGame();
 };
-#endif // WIDGET_H
+#endif // STARTWIDGET_H

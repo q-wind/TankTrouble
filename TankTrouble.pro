@@ -9,11 +9,24 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    aimode.cpp \
+    gamemanager.cpp \
+    gamewidget.cpp \
+    localmode.cpp \
     main.cpp \
-    widget.cpp
+    onlinemode.cpp \
+    startwidget.cpp \
+    tank.cpp
 
 HEADERS += \
-    widget.h
+    aimode.h \
+    gamemanager.h \
+    gamemode.h \
+    gamewidget.h \
+    localmode.h \
+    onlinemode.h \
+    startwidget.h \
+    tank.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/fox.jpg</file>
+        <file>icons/help.png</file>
+    </qresource>
+</RCC>
