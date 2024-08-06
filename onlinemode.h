@@ -1,9 +1,9 @@
 #ifndef ONLINEMODE_H
 #define ONLINEMODE_H
 
-#include "gamemode.h"
+#include "game.h"
 
-class OnlineMode: public GameMode
+class OnlineMode: public Game
 {
 public:
     OnlineMode();

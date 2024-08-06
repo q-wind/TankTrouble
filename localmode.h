@@ -1,10 +1,10 @@
 #ifndef LOCALMODE_H
 #define LOCALMODE_H
 
-#include "gamemode.h"
+#include "game.h"
 
 // 本地双人对战
-class LocalMode: public GameMode
+class LocalMode: public Game
 {
 public:
     LocalMode();

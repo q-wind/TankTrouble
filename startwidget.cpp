@@ -1,9 +1,10 @@
 #include "startwidget.h"
+#include "gamemanager.h"
 #include <QPainter>
 #include <QPixmap>
 #include <QIcon>
 #include <QMessageBox>
-#include <QDebug>
+
 
 StartWidget::StartWidget(QWidget *parent)
     : QWidget(parent)
@@ -28,21 +29,28 @@ void StartWidget::resizeEvent(QResizeEvent* event)
 {
     int newWidth  = event->size().width();
     int newHeight = event->size().height();
-    if (static_cast<float>(newWidth) / newHeight > aspectRadio) {
-        newWidth  = static_cast<int>(newHeight * aspectRadio);
+    if (static_cast<float>(newWidth) / newHeight > m_aspectRadio) {
+        newWidth  = static_cast<int>(newHeight * m_aspectRadio);
     } else {
-        newHeight = static_cast<int>(newWidth / aspectRadio);
+        newHeight = static_cast<int>(newWidth / m_aspectRadio);
     }
     this->resize(newWidth, newHeight);
-
+    GameManager::GetInstance().m_lastWidth = newWidth;
+    GameManager::GetInstance().m_lastHeight = newHeight;
     // 大小调整事件，基类方法可能调整部件大小和位置，先调整窗口再交给父类处理其他位置
     QWidget::resizeEvent(event);
+}
+
+void StartWidget::moveEvent(QMoveEvent* event)
+{
+    QWidget::moveEvent(event);
+    GameManager::GetInstance().m_lastX = this->x();
+    GameManager::GetInstance().m_lastY = this->y();
 }
 
 void StartWidget::SetUI()
 {
     // widget size
-    this->resize(800, 600);
     this->setMinimumSize(600, 450);
     this->setMaximumSize(1000, 750);
 
@@ -119,9 +127,9 @@ void StartWidget::SetSignalSlot()
     connect(btnStart, &QPushButton::clicked, this, &StartWidget::ShowGameMode);
     connect(btnHelp, &QPushButton::clicked, this, &StartWidget::ShowHelp);
 
-    connect(btnAIMode, &QPushButton::clicked, this, &StartWidget::StartAIGame);
-    connect(btnLocalMode, &QPushButton::clicked, this, &StartWidget::StartLocalGame);
-    connect(btnOnlineMode, &QPushButton::clicked, this, &StartWidget::StartOnlineGame);
+    connect(btnAIMode, &QPushButton::clicked, this, &StartWidget::SelectAIGame);
+    connect(btnLocalMode, &QPushButton::clicked, this, &StartWidget::SelectLocalGame);
+    connect(btnOnlineMode, &QPushButton::clicked, this, &StartWidget::SelectOnlineGame);
 }
 
 void StartWidget::ShowGameMode()
@@ -151,17 +159,17 @@ void StartWidget::ShowHelp()
     helpBox.exec();
 }
 
-void StartWidget::StartAIGame()
+void StartWidget::SelectAIGame()
 {
     emit ModeSelected(Mode::AI);
 }
 
-void StartWidget::StartLocalGame()
+void StartWidget::SelectLocalGame()
 {
     emit ModeSelected(Mode::LOCAL);
 }
 
-void StartWidget::StartOnlineGame()
+void StartWidget::SelectOnlineGame()
 {
     emit ModeSelected(Mode::ONLINE);
 }

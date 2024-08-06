@@ -1,9 +1,9 @@
 #ifndef AIMODE_H
 #define AIMODE_H
 
-#include "gamemode.h"
+#include "game.h"
 
-class AIMode: public GameMode
+class AIMode: public Game
 {
 public:
     AIMode();

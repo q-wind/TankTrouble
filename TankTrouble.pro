@@ -20,11 +20,12 @@ SOURCES += \
 
 HEADERS += \
     aimode.h \
+    game.h \
     gamemanager.h \
-    gamemode.h \
     gamewidget.h \
     localmode.h \
     onlinemode.h \
+    player.h \
     startwidget.h \
     tank.h
 

@@ -2,7 +2,9 @@
 
 
 LocalMode::LocalMode()
-{}
+{
+    m_mode = Mode::LOCAL;
+}
 
 LocalMode::~LocalMode()
 {}

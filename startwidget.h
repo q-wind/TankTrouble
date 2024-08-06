@@ -1,13 +1,14 @@
 #ifndef STARTWIDGET_H
 #define STARTWIDGET_H
 
-#include "gamemode.h"
+#include "game.h"
 #include <QWidget>
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPaintEvent>
 #include <QResizeEvent>
+#include <QMoveEvent>
 
 // Start StartWidget
 class StartWidget : public QWidget
@@ -21,12 +22,13 @@ public:
 protected:
     void paintEvent(QPaintEvent* event) override;
     void resizeEvent(QResizeEvent* event) override;
+    void moveEvent(QMoveEvent* event) override;
 
 private:
     void SetUI();
     void SetSignalSlot();
 
-    const float aspectRadio = 4.0f / 3.0f;
+    const float m_aspectRadio = 4.0f / 3.0f;
 
     // Qt中自动内存管理，父窗口析构时会负责销毁子部件
     QHBoxLayout* startLayout;
@@ -43,13 +45,13 @@ private:
     QVBoxLayout* mainLayout;
 
 signals:
-    void ModeSelected(Mode mode);
+    void ModeSelected(Mode mode);   // 选择游戏模式时，发射信号与GameManager交互
 
 private slots:
     void ShowGameMode();
     void ShowHelp();
-    void StartAIGame();
-    void StartLocalGame();
-    void StartOnlineGame();
+    void SelectAIGame();
+    void SelectLocalGame();
+    void SelectOnlineGame();
 };
 #endif // STARTWIDGET_H
